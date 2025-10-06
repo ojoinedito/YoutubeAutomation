@@ -1,0 +1,18 @@
+name: Build & Upload
+on:
+  workflow_dispatch
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: pip install requests gTTS moviepy google-auth google-auth-oauthlib google-api-python-client
+      - run: python script_generator.py
+      - run: python text_to_speech.py
+      - run: python download_videos.py
+      - run: python make_movie.py
+      - run: python upload_to_youtube.py
