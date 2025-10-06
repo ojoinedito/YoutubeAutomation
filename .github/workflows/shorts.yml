@@ -6,6 +6,9 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
+    env:
+      HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+
     steps:
       - uses: actions/checkout@v3
 
@@ -27,7 +30,8 @@ jobs:
             google-auth \
             google-auth-oauthlib \
             google-api-python-client \
-            llama-cpp-python
+            transformers \
+            huggingface_hub
 
       - name: Run script_generator.py
         run: python script_generator.py
