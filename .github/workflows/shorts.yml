@@ -10,16 +10,22 @@ jobs:
       HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
 
     steps:
-- uses: actions/checkout@v3
-  with:
-    fetch-depth: 0
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-- name: Show current commit
-  run: git rev-parse HEAD
+      - name: Show current commit
+        run: git rev-parse HEAD
 
-- name: Show first lines of script_generator.py
-  run: head -n 20 script_generator.py       
- - uses: actions/setup-python@v4
+      - name: Show first lines of script_generator.py
+        run: head -n 20 script_generator.py
+
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libomp-dev
+
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
